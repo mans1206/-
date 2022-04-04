@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include "Timer.h"
@@ -32,11 +32,9 @@ void Swap(T* a, T* b)
 //The second task
 
 template <typename T>
-void SortPointers (std::vector<T*> pvec)
+void SortPointers (std::vector<T*>& pvec)
 {
     std::sort(pvec.begin(), pvec.end(), [](int* a, int* b) -> bool {return *a < *b; });
-    // Данный алгоритм, как в случае с предыдущим заданием, прекрасно себя показал в функции main, однако в шаблонной функции он отказывается
-    // выполняться. Я так и не возьму в толк, почему это происходит. Прошу разъяснить решение в комментарии.
 }
 
 
@@ -106,8 +104,6 @@ int main()
      printPVec(pvec);
      SortPointers(pvec);
      std::cout << "Sorted" << std::endl;
-     std::sort(pvec.begin(), pvec.end(), [](int* a, int* b) -> bool {return *a < *b; });
-     // Прописал лямбда-функцию здесь дополнительно, чтобы доказать, что я действительно опробовал данный способ.
      printPVec(pvec);
 
      std::cout << "====================================================================" << std::endl;
