@@ -81,75 +81,118 @@ public:
 //==========================================================================
 
 template <class T>
-class Iterator
+class Iterator : public std::iterator<std::input_iterator_tag, T>
 {
 private:
-	T a;
+	Iterator(T* a) : m_a(a)
+	{};
+	T* m_a;
 public:
-	Iterator(T b = 0): a(b)
+	Iterator(const Iterator& it): m_a(it.a)
+	{};
+	Iterator(int v) : m_a(&v)
 	{};
 	friend ostream& operator<< (ostream& out, const Iterator & it)
 	{
-		out << it.a;
+		out << it.m_a;
 		return out;
 	}
+	Iterator<T> & operator++ ()
+	{
+		m_a++;
+		return *this;
+	}
+	typename Iterator <T>::reference & operator* () const
+	{
+		return *m_a;
+	}
+	friend bool operator< (Iterator& it1, Iterator& it2)
+	{
+		return it1.m_a < it2.m_a;
+	}
+
+
+
+	//typename OwnIterator<ValueType>::reference OwnIterator<ValueType>::operator*() const
+	//{
+	//	return *p;
+	//}
+
+	//template<typename ValueType>
+	//OwnIterator<ValueType>& OwnIterator<ValueType>::operator++()
+	//{
+	//	++p;
+	//	return *this;
+	//}
+
 };
+
 
 
 int main()
 {
-	cout << "The first task" << endl;
-	cout << "=================================================================" << endl;
-	list <double> l1;
-	for (double i = 1; i < 11; i++)
-	{
-		l1.push_back(i);
-	}
+	//cout << "The first task" << endl;
+	//cout << "=================================================================" << endl;
+	//list <double> l1;
+	//for (double i = 1; i < 11; i++)
+	//{
+	//	l1.push_back(i);
+	//}
 
-	printlist(l1);
-	cout << endl;
-	AddSred(l1);
-	printlist(l1);
+	//printlist(l1);
+	//cout << endl;
+	//AddSred(l1);
+	//printlist(l1);
 
-	cout << endl;
-	cout << "=================================================================" << endl;
-	cout << "The second task" << endl;
-	cout << "=================================================================" << endl;
+	//cout << endl;
+	//cout << "=================================================================" << endl;
+	//cout << "The second task" << endl;
+	//cout << "=================================================================" << endl;
+	//
+	//Matrix mat3(5,7,1,
+	//		  -4,1,0,
+	//		   2,0,3);
+	//mat3.print();
+	//mat3.determinator();
+
+	//Matrix mat2(1, 0, 1, 0);
+	//mat2.print();
+	//mat2.determinator();
+
+	//Matrix mat1(56);
+	//mat1.determinator();
+	//cout << "=================================================================" << endl;
+	//cout << "The third task" << endl;
+	//cout << "=================================================================" << endl;
+
+	//vector <int> v2{ 1, 0 , 9, 4, 2, 3, 1, 6 ,32 ,765, 87 };
+	//for (Iterator<int> iter : v2)
+	//{
+	//	cout << iter << " ";
+	//}
+	//cout << endl;
+	//
+	//list <double> l3{ 4.5, 12.4312, 54.321, 0.3 };
+	//for (Iterator<double> it2 : l3)
+	//{
+	//	cout << it2 << " ";
+	//}
+	//cout << endl;
+	//long arr[5] = { 1'000'000, 1'094'234'235, 54, 9023, 123'132'414 };
+	//for (Iterator <long> lit : arr)
+	//{
+	//	cout << lit << " ";
+	//}
+	//cout << endl;
 	
-	Matrix mat3(5,7,1,
-			  -4,1,0,
-			   2,0,3);
-	mat3.print();
-	mat3.determinator();
+	vector <int> v{ 1, 8, 0, 4, 3,2, };
+	int b = 9;
+	Iterator <int> iter = b; 
+	cout << iter << endl;
+	cout << *iter << endl;
 
-	Matrix mat2(1, 0, 1, 0);
-	mat2.print();
-	mat2.determinator();
 
-	Matrix mat1(56);
-	mat1.determinator();
-	cout << "=================================================================" << endl;
-	cout << "The third task" << endl;
-	cout << "=================================================================" << endl;
-
-	vector <int> v2{ 1, 0 , 9, 4, 2, 3, 1, 6 ,32 ,765, 87 };
-	for (Iterator<int> iter : v2)
-	{
-		cout << iter << " ";
-	}
-	cout << endl;
 	
-	list <double> l3{ 4.5, 12.4312, 54.321, 0.3 };
-	for (Iterator<double> it2 : l3)
-	{
-		cout << it2 << " ";
-	}
-	cout << endl;
-	long arr[5] = { 1'000'000, 1'094'234'235, 54, 9023, 123'132'414 };
-	for (Iterator <long> lit : arr)
-	{
-		cout << lit << " ";
-	}
 
 
 	return 0;
